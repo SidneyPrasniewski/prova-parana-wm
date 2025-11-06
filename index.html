@@ -1,1 +1,552 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sua Jornada na Prova Paraná</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carrega o Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Fonte Inter */
+        body {
+            font-family: "Inter", sans-serif;
+        }
+        /* Estilo para a barra de progresso (usada no detalhe do aluno) */
+        .progress-bar-bg {
+            background-color: #e0e0e0; /* Fundo cinza claro */
+            border-radius: 0.5rem;
+            overflow: hidden;
+            height: 1.5rem;
+        }
+        .progress-bar {
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: bold;
+            color: white;
+            transition: width 0.6s ease;
+        }
+        /* Altura fixa para a lista de alunos e gráficos para melhor layout */
+        #student-list {
+            max-height: 450px;
+            overflow-y: auto;
+        }
+        #chart-container {
+            height: 350px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 md:p-8">
 
+    <div class="max-w-7xl mx-auto bg-white shadow-2xl rounded-lg overflow-hidden">
+        
+        <!-- Cabeçalho -->
+        <header class="bg-blue-800 text-white p-6 shadow-md">
+            <h1 class="text-3xl font-bold">Jornada na Prova Paraná</h1>
+            <p class="text-lg text-blue-100 mt-1">Sua evolução entre a 1ª e a 2ª Edição (1º Ano)</p>
+        </header>
+
+        <!-- Seção de Métricas Principais (KPIs) - Atualizados com os dados corretos -->
+        <section class="bg-white p-6 grid grid-cols-2 md:grid-cols-4 gap-4 border-b border-gray-200">
+            <div class="text-center p-4 bg-blue-50 rounded-lg shadow-sm">
+                <p class="text-sm font-medium text-blue-700">Média de Acertos (1ª Edição)</p>
+                <p class="text-3xl font-bold text-blue-900">23.81%</p>
+            </div>
+            <div class="text-center p-4 bg-green-50 rounded-lg shadow-sm">
+                <p class="text-sm font-medium text-green-700">Média de Acertos (2ª Edição)</p>
+                <p class="text-3xl font-bold text-green-900">60.00%</p>
+            </div>
+            <div class="text-center p-4 bg-green-50 rounded-lg shadow-sm">
+                <p class="text-sm font-medium text-green-700">Evolução da Média (P2 vs P1)</p>
+                <p class="text-3xl font-bold text-green-900">+36.19 p.p.</p>
+            </div>
+            <div class="text-center p-4 bg-green-50 rounded-lg shadow-sm">
+                <p class="text-sm font-medium text-green-700">Alunos que Melhoraram %</p>
+                <p class="text-3xl font-bold text-green-900">83.3%</p>
+            </div>
+        </section>
+
+        <main class="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Coluna Principal (Gráficos e Observações) -->
+            <div class="lg:col-span-2 space-y-8">
+
+                <!-- Seção de Gráficos Visuais -->
+                <section id="visualizacao">
+                    <h2 class="text-2xl font-semibold text-gray-800 border-b-2 border-blue-200 pb-2 mb-4">1. O Retrato da Turma (21 na 1ª Edição, 20 na 2ª)</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+                        
+                        <!-- Gráfico 1: Distribuição de Desempenho (Gráfico de Barras/Torre) -->
+                        <div class="md:col-span-3 bg-gray-50 p-4 rounded-lg shadow-inner">
+                            <h3 class="font-bold text-lg text-center mb-4 text-blue-900">Distribuição da % de Acertos (1ª vs 2ª Edição)</h3>
+                            <div id="chart-container" class="relative">
+                                <canvas id="distribuicaoChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Gráfico 2: Status da Evolução (Gráfico de Pizza) -->
+                        <div class="md:col-span-2 bg-gray-50 p-4 rounded-lg shadow-inner">
+                             <h3 class="font-bold text-lg text-center mb-4 text-blue-900">Nossa Jornada</h3>
+                             <div id="chart-container" class="relative">
+                                <canvas id="evolucaoChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Seção de Observações -->
+                <section id="observacoes">
+                    <h2 class="text-2xl font-semibold text-gray-800 border-b-2 border-blue-200 pb-2 mb-4">2. Conquistas e Reflexões da Turma</h2>
+                    
+                    <div class="space-y-4">
+                        
+                        <div class="bg-green-50 border border-green-200 p-4 rounded-lg shadow-sm">
+                            <h3 class="font-bold text-lg text-green-800">1. A "Virada de Jogo" da Turma!</h3>
+                            <p class="text-gray-700">Parabéns a todos! A média de acertos da turma saltou de **23.81%** (P1) para **60.00%** (P2). Dos 18 alunos que fizeram as duas provas, 83.3% (15 alunos) melhoraram seu percentual. Um resultado fantástico!</p>
+                        </div>
+                        
+                        <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg shadow-sm">
+                            <h3 class="font-bold text-lg text-blue-800">2. Superando o Desafio Inicial</h3>
+                            <p class="text-gray-700">Na 1ª Edição, 9 alunos começaram com 0% de acertos. Na 2ª Edição, **todos** eles pontuaram. Quatro deles (Amanda, Leticia, Luis Gustavo e Samuel) deram um salto direto para 66.67% de acertos. Nossas boas-vindas à Sara e Laysla, que já começaram na 2ª Edição com ótimos 66.67%!</p>
+                        </div>
+
+                        <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg shadow-sm">
+                            <h3 class="font-bold text-lg text-blue-800">3. O Novo Patamar da Turma</h3>
+                            <p class="text-gray-700">A turma que se concentrava em percentuais mais baixos agora se moveu para cima. Na 2ª Edição, **70%** da turma (14 de 20 alunos) alcançou o patamar de 66.67% de acertos.</p>
+                        </div>
+
+                        <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-lg shadow-sm">
+                            <h3 class="font-bold text-lg text-yellow-800">4. Pontos de Reflexão (Queda ou Estagnação)</h3>
+                            <p class="text-gray-700">Alguns colegas tiveram queda ou mantiveram o percentual de acertos. Isso é **absolutamente normal** no processo de aprender.</p>
+                            <ul class="list-disc list-inside ml-4 text-gray-700">
+                                <li>**Letícia Aiko (100% -> 66.67%):** Começou no topo. Manter-se com um ótimo percentual é um desafio.</li>
+                                <li>**Carlos Eduardo (66.66% -> 33.33%):** Já mostrou que domina o assunto. Acontece!</li>
+                                <li>**Mickaely (33.33% -> 33.33%):** Manteve o percentual. O importante é entender onde podemos melhorar para o próximo passo.</li>
+                            </ul>
+                            <p class="mt-2 text-gray-700">A jornada não é uma linha reta. O importante é não desistir e buscar apoio.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Seção Próximos Passos (AGORA MENSAGEM FINAL) -->
+                <section id="proximos-passos">
+                    <h2 class="text-2xl font-semibold text-gray-800 border-b-2 border-blue-200 pb-2 mb-4">3. O Que Levar Desta Jornada</h2>
+                     <div class="space-y-4">
+                        <div class="bg-white border border-gray-200 p-4 rounded-lg shadow">
+                            <h3 class="font-bold text-lg text-blue-800">Uma Mensagem Final para Vocês</h3>
+                            <p class="mt-2 text-gray-700">
+                                Parabéns pela incrível evolução que vocês mostraram! Mais do que os números da Prova Paraná, o que vimos aqui foi a capacidade da turma de focar em um desafio e crescer. Muitos de vocês deram saltos impressionantes, saindo do zero e alcançando ótimos resultados.
+                            </p>
+                            <p class="mt-4 text-gray-700">
+                                Este pode ser o fim do ciclo desta prova, mas a lição principal fica: o esforço de estudar e a dedicação para entender um problema (seja em Pensamento Computacional, História ou Biologia) é o que constrói o verdadeiro aprendizado.
+                            </p>
+                             <p class="mt-4 text-gray-700">
+                                Levem essa mesma dedicação para os próximos desafios. Vocês provaram que são capazes de evoluir. Parabéns a todos pelo ano e pelo esforço!
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Coluna Lateral (Análise Individual Interativa) -->
+            <aside class="lg:col-span-1 bg-blue-50 p-6 rounded-lg shadow-lg sticky top-8">
+                <h2 class="text-2xl font-semibold text-blue-900 border-b-2 border-blue-300 pb-2 mb-4">Sua Evolução Individual</h2>
+                
+                <p class="text-sm text-gray-700 mb-4">Clique no seu nome para ver seu desempenho e uma mensagem sobre sua jornada.</p>
+
+                <!-- Lista de Alunos (Clicável) -->
+                <div id="student-list" class="bg-white rounded-lg shadow-inner border border-gray-200 divide-y divide-gray-200">
+                    <!-- Alunos serão inseridos aqui pelo JavaScript -->
+                </div>
+
+                <!-- Card de Detalhe do Aluno (Placeholder) -->
+                <div id="student-detail-card" class="mt-6 p-4 bg-white rounded-lg shadow-md border border-gray-200 hidden">
+                    <h3 id="detail-nome" class="text-2xl font-bold text-blue-900"></h3>
+                    <p id="detail-status" class="text-lg font-semibold"></p>
+                    
+                    <div class="mt-4 space-y-3">
+                        <!-- Comparativo P1 vs P2 -->
+                        <div>
+                            <div class="flex justify-between text-sm font-medium text-gray-600">
+                                <span>Prova 1ª Edição (% Acerto)</span>
+                                <span id="detail-p1-label"></span>
+                            </div>
+                            <div class="w-full progress-bar-bg">
+                                <div id="detail-p1-bar" class="progress-bar bg-gray-500 text-gray-800"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm font-medium text-gray-600">
+                                <span>Prova 2ª Edição (% Acerto)</span>
+                                <span id="detail-p2-label"></span>
+                            </div>
+                            <div class="w-full progress-bar-bg">
+                                <div id="detail-p2-bar" class="progress-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sugestão de Feedback -->
+                    <div class="mt-6">
+                        <p class="font-semibold text-blue-800">Uma mensagem para você:</p>
+                        <blockquote id="detail-sugestao" class="border-l-4 pl-3 italic text-gray-700 mt-2">
+                        </blockquote>
+                    </div>
+
+                    <!-- Botão de Feedback (Novo) -->
+                    <div class="mt-6 text-center border-t border-gray-200 pt-4">
+                        <a href="https://forms.gle/SSSYWgGuoNdL3UQT8" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition-colors duration-200 shadow-md">
+                            Deixar minha Reflexão
+                        </a>
+                    </div>
+                </div>
+
+                 <div id="student-detail-placeholder" class="mt-6 p-4 bg-white rounded-lg shadow-md border border-gray-200 text-center text-gray-500">
+                    <p>Selecione seu nome na lista acima.</p>
+                </div>
+
+            </aside>
+
+        </main>
+    </div>
+
+    <!-- JavaScript para Gráficos e Interatividade -->
+    <script>
+        // --- 1. DADOS DOS ALUNOS (DADOS CORRETOS E FINAIS) ---
+        const studentRawData = [
+            // P1 e P2 (18 alunos)
+            { nome: 'AMANDA', p1: 0.00, p2: 66.67 },
+            { nome: 'BRENDA SILVA', p1: 33.33, p2: 66.67 },
+            { nome: 'BRUNO', p1: 33.33, p2: 66.67 },
+            { nome: 'CARLOS EDUARDO', p1: 66.66, p2: 33.33 },
+            { nome: 'JOÃO RICARDO', p1: 0.00, p2: 33.33 },
+            { nome: 'KARINA', p1: 33.33, p2: 66.67 },
+            { nome: 'KAWAN', p1: 33.33, p2: 66.67 },
+            { nome: 'LETÍCIA AIKO', p1: 100.00, p2: 66.67 },
+            { nome: 'LETICIA', p1: 0.00, p2: 66.67 },
+            { nome: 'LUCAS', p1: 33.33, p2: 66.67 },
+            { nome: 'LUIS GUSTAVO', p1: 0.00, p2: 66.67 },
+            { nome: 'MARIA FERNANDA', p1: 33.33, p2: 66.67 },
+            { nome: 'MIGUEL', p1: 0.00, p2: 33.33 },
+            { nome: 'MICKAELY', p1: 33.33, p2: 33.33 },
+            { nome: 'MILENA', p1: 33.33, p2: 66.67 },
+            { nome: 'PEDRO', p1: 0.00, p2: 33.33 },
+            { nome: 'SAMUEL', p1: 0.00, p2: 66.67 },
+            { nome: 'VITOR HUGO', p1: 0.00, p2: 33.33 },
+            
+            // Apenas P1 (3 alunos)
+            { nome: 'ANDRÉ', p1: 33.33, p2: null },
+            { nome: 'BREND', p1: 66.66, p2: null },
+            { nome: 'MARYANE', p1: 0.00, p2: null },
+
+            // Apenas P2 (2 alunos)
+            { nome: 'SARA', p1: null, p2: 66.67 },
+            { nome: 'LAYSLA', p1: null, p2: 66.67 }
+        ];
+
+        // --- 2. PROCESSAMENTO DOS DADOS (CÁLCULO E SUGESTÕES PEDAGÓGICAS) ---
+        const studentData = studentRawData.map(aluno => {
+            
+            // Lógica para NOVOS ALUNOS (p1 é null)
+            if (aluno.p1 === null) {
+                return {
+                    ...aluno,
+                    evolucao: 0,
+                    status: 'novo',
+                    statusText: 'Nova Aluna',
+                    statusColor: 'text-blue-600',
+                    sugestao: `Bem-vinda! Esta foi sua primeira Prova Paraná registrada. Você começou com ${aluno.p2.toFixed(2)}% de acertos. É uma ótima base! Continue focada nos estudos.`
+                };
+            }
+
+            // Lógica para ALUNOS QUE SAÍRAM (p2 é null)
+            if (aluno.p2 === null) {
+                return {
+                    ...aluno,
+                    evolucao: 0,
+                    status: 'saida',
+                    statusText: 'Mudou de Escola',
+                    statusColor: 'text-purple-600',
+                    sugestao: `Este aluno(a) realizou a 1ª Edição da prova e obteve ${aluno.p1.toFixed(2)}% de acertos, mas mudou de escola antes da 2ª Edição.`
+                };
+            }
+
+            // Lógica para alunos existentes (P1 e P2)
+            const evolucao = aluno.p2 - aluno.p1;
+            let status, statusText, statusColor, sugestao;
+
+            if (evolucao > 0) {
+                status = 'melhorou';
+                statusColor = 'text-green-600';
+                if (aluno.p1 === 0 && aluno.p2 > 33.33) {
+                    statusText = 'Salto Quântico!';
+                    sugestao = "UAU! Isso é o que chamamos de virada de jogo! Sair de 0% e alcançar 66.67% de acertos é uma conquista incrível. Parabéns pela sua dedicação, você provou que é capaz de superar qualquer desafio.";
+                } else if (aluno.p1 === 0) {
+                    statusText = 'Saída do Zero';
+                    sugestao = "Parabéns! Você saiu de 0% de acertos e construiu uma base. Esse é o primeiro e mais importante passo. Continue assim, e na próxima prova, vamos trabalhar juntos para alcançar o próximo nível!";
+                } else {
+                    statusText = 'Evolução Sólida';
+                    sugestao = "Excelente! Você dobrou seu percentual de acertos e agora está no grupo da frente. Isso mostra consistência e aprendizado. Mantenha o foco, você está no caminho certo.";
+                }
+            } else if (evolucao < 0) {
+                status = 'queda';
+                statusColor = 'text-red-600';
+                if (aluno.p1 === 100) {
+                    statusText = 'Reflexão';
+                    sugestao = "Ei, seu 100% de acertos na 1ª Edição foi fantástico! Você continuou com uma nota ótima (66.67% de acertos). Manter o topo é sempre um desafio, e talvez a 2ª Edição tenha sido mais complexa. Faz parte da jornada. Sua base de conhecimento é excelente.";
+                } else {
+                    statusText = 'Reflexão';
+                    sugestao = `Calma, isso acontece. A jornada de aprender tem altos e baixos. Você já mostrou na 1ª Edição que sabe o conteúdo (${aluno.p1.toFixed(2)}% de acertos). Talvez esse tema novo tenha sido mais complexo ou você não estava em um bom dia. Estamos aqui para te apoiar. Revise os pontos de dificuldade e vamos recuperar na próxima!`;
+                }
+            } else {
+                status = 'manteve';
+                statusText = 'Consolidou';
+                statusColor = 'text-gray-600';
+                sugestao = "Você manteve seu percentual de acertos, o que mostra que consolidou o que já sabia. Em uma turma onde 85% avançou, vamos conversar para ver como podemos quebrar essa barreira e crescer juntos na próxima. Qual foi o ponto mais difícil para você?";
+            }
+
+            return { ...aluno, evolucao, status, statusText, statusColor, sugestao };
+        });
+
+        // --- 3. LÓGICA DOS GRÁFICOS (CHART.JS) ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Gráfico de Barras (Distribuição) ---
+            const ctxBar = document.getElementById('distribuicaoChart').getContext('2d');
+            
+            // Contagem para o gráfico de barras
+            const p1Counts = { '0%': 0, '33.3%': 0, '66.7%': 0, '100%': 0 };
+            const p2Counts = { '0%': 0, '33.3%': 0, '66.7%': 0, '100%': 0 };
+            
+            studentData.forEach(aluno => {
+                // P1 (Só conta quem fez a P1, ou seja, p1 não é null)
+                if (aluno.p1 !== null) {
+                    if (aluno.p1 === 0) p1Counts['0%']++;
+                    if (aluno.p1 > 0 && aluno.p1 < 34) p1Counts['33.3%']++;
+                    if (aluno.p1 > 34 && aluno.p1 < 67) p1Counts['66.7%']++;
+                    if (aluno.p1 === 100) p1Counts['100%']++;
+                }
+                
+                // P2 (Só conta quem fez a P2, ou seja, p2 não é null)
+                if (aluno.p2 !== null) {
+                    if (aluno.p2 === 0) p2Counts['0%']++;
+                    if (aluno.p2 > 0 && aluno.p2 < 34) p2Counts['33.3%']++;
+                    if (aluno.p2 > 34 && aluno.p2 < 67) p2Counts['66.7%']++;
+                    if (aluno.p2 === 100) p2Counts['100%']++;
+                }
+            });
+
+            new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: ['0%', '33.3%', '66.7%', '100%'],
+                    datasets: [
+                        {
+                            label: 'Prova 1ª Edição',
+                            data: [p1Counts['0%'], p1Counts['33.3%'], p1Counts['66.7%'], p1Counts['100%']],
+                            backgroundColor: 'rgba(59, 130, 246, 0.6)', // Blue
+                            borderColor: 'rgba(59, 130, 246, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Prova 2ª Edição',
+                            data: [p2Counts['0%'], p2Counts['33.3%'], p2Counts['66.7%'], p2Counts['100%']],
+                            backgroundColor: 'rgba(34, 197, 94, 0.6)', // Green
+                            borderColor: 'rgba(34, 197, 94, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Nº de Alunos' }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y + ' aluno(s)';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // --- Gráfico de Pizza (Evolução) ---
+            const ctxPie = document.getElementById('evolucaoChart').getContext('2d');
+            const evolucaoCounts = {
+                melhorou: studentData.filter(a => a.status === 'melhorou').length,
+                manteve: studentData.filter(a => a.status === 'manteve').length,
+                queda: studentData.filter(a => a.status === 'queda').length,
+                novos: studentData.filter(a => a.status === 'novo').length,
+                saida: studentData.filter(a => a.status === 'saida').length
+            };
+
+            new Chart(ctxPie, {
+                type: 'pie',
+                data: {
+                    labels: ['Evoluíram %', 'Consolidou %', 'Tiveram Reflexão', 'Novos Alunos', 'Mudaram de Escola'],
+                    datasets: [{
+                        label: 'Status da Evolução',
+                        data: [
+                            evolucaoCounts.melhorou, 
+                            evolucaoCounts.manteve, 
+                            evolucaoCounts.queda, 
+                            evolucaoCounts.novos,
+                            evolucaoCounts.saida
+                        ],
+                        backgroundColor: [
+                            'rgba(34, 197, 94, 0.7)', // Green
+                            'rgba(107, 114, 128, 0.7)', // Gray
+                            'rgba(234, 179, 8, 0.7)', // Yellow
+                            'rgba(59, 130, 246, 0.7)', // Blue (Novos Alunos)
+                            'rgba(126, 34, 206, 0.7)' // Purple (Saída)
+                        ],
+                        borderColor: [
+                            'rgba(34, 197, 94, 1)',
+                            'rgba(107, 114, 128, 1)',
+                            'rgba(234, 179, 8, 1)',
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(126, 34, 206, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                             callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    let value = context.parsed;
+                                    let total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                    let percentage = ((value / total) * 100).toFixed(1) + '%';
+                                    return `${label}: ${value} aluno(s) (${percentage})`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // --- 4. LÓGICA DA ANÁLISE INDIVIDUAL (CLIQUES) ---
+            const studentListContainer = document.getElementById('student-list');
+            const detailCard = document.getElementById('student-detail-card');
+            const detailPlaceholder = document.getElementById('student-detail-placeholder');
+            
+            // Elementos do Card de Detalhe
+            const detailNome = document.getElementById('detail-nome');
+            const detailStatus = document.getElementById('detail-status');
+            const detailP1Label = document.getElementById('detail-p1-label');
+            const detailP1Bar = document.getElementById('detail-p1-bar');
+            const detailP2Label = document.getElementById('detail-p2-label');
+            const detailP2Bar = document.getElementById('detail-p2-bar');
+            const detailSugestao = document.getElementById('detail-sugestao');
+
+            let lastSelectedButton = null;
+
+            studentData
+                .sort((a, b) => a.nome.localeCompare(b.nome)) // Ordena por nome
+                .forEach(aluno => {
+                    const button = document.createElement('button');
+                    button.className = 'w-full text-left p-3 hover:bg-gray-100 transition duration-150 flex justify-between items-center';
+                    
+                    const nomeSpan = document.createElement('span');
+                    nomeSpan.className = 'font-medium text-gray-800';
+                    nomeSpan.textContent = aluno.nome;
+                    
+                    const statusSpan = document.createElement('span');
+                    statusSpan.className = `text-sm font-semibold ${aluno.statusColor}`;
+                    statusSpan.textContent = aluno.statusText;
+
+                    button.appendChild(nomeSpan);
+                    button.appendChild(statusSpan);
+
+                    button.onclick = () => {
+                        // Reseta o estilo do botão anterior
+                        if (lastSelectedButton) {
+                            lastSelectedButton.classList.remove('bg-blue-100', 'border-l-4', 'border-blue-500');
+                        }
+                        // Aplica estilo ao botão atual
+                        button.classList.add('bg-blue-100', 'border-l-4', 'border-blue-500');
+                        lastSelectedButton = button;
+
+                        // Preenche o card
+                        detailNome.textContent = aluno.nome;
+                        detailStatus.textContent = aluno.statusText;
+                        detailStatus.className = `text-lg font-semibold ${aluno.statusColor}`;
+
+                        // Barra P1
+                        if (aluno.p1 === null) {
+                            // Caso do Novo Aluno
+                            detailP1Label.textContent = "N/A (Não realizou a 1ª Edição)";
+                            detailP1Bar.style.width = `0%`;
+                            detailP1Bar.textContent = "N/A";
+                            detailP1Bar.className = "progress-bar bg-gray-400";
+                        } else {
+                            // Caso do Aluno existente ou que saiu
+                            const p1Text = `${aluno.p1.toFixed(2)}%`;
+                            detailP1Label.textContent = p1Text;
+                            detailP1Bar.style.width = `${Math.max(aluno.p1, 5)}%`; // Valor mínimo para a barra ser visível
+                            detailP1Bar.textContent = p1Text;
+                            detailP1Bar.className = "progress-bar bg-blue-500";
+                        }
+
+                        // Barra P2
+                        if (aluno.p2 === null) {
+                            // Caso do Aluno que saiu
+                            detailP2Label.textContent = "N/A (Mudou de escola)";
+                            detailP2Bar.style.width = `0%`;
+                            detailP2Bar.textContent = "N/A";
+                            detailP2Bar.className = "progress-bar bg-gray-400";
+                        } else {
+                            // Caso do Aluno existente ou novo
+                            const p2Text = `${aluno.p2.toFixed(2)}%`;
+                            detailP2Label.textContent = p2Text;
+                            detailP2Bar.style.width = `${Math.max(aluno.p2, 5)}%`; // Valor mínimo
+                            detailP2Bar.textContent = p2Text;
+                            
+                            // Cor da barra P2 baseada no status
+                            if (aluno.status === 'melhorou') {
+                                detailP2Bar.className = "progress-bar bg-green-500";
+                            } else if (aluno.status === 'queda') {
+                                detailP2Bar.className = "progress-bar bg-yellow-500 text-gray-800";
+                            } else if (aluno.status === 'novo') {
+                                detailP2Bar.className = "progress-bar bg-blue-500";
+                            } else {
+                                detailP2Bar.className = "progress-bar bg-gray-500";
+                            }
+                        }
+
+                        detailSugestao.textContent = aluno.sugestao;
+
+                        // Mostra o card e esconde o placeholder
+                        detailCard.classList.remove('hidden');
+                        detailPlaceholder.classList.add('hidden');
+                    };
+
+                    studentListContainer.appendChild(button);
+                });
+        });
+    </script>
+
+</body>
+</html>
