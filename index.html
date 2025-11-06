@@ -67,7 +67,31 @@
             </div>
             <div class="text-center p-4 bg-green-100 rounded-lg shadow-sm">
                 <p class="text-sm font-medium text-green-800">Evolução da Média (P2 vs P1)</p>
-                <p class="text-3xl font-bold text-green-900">+36.19 p.p.</p>
+                
+                <!-- Wrapper para o Tooltip (Hover) -->
+                <div class="relative group inline-block">
+                    
+                    <!-- Texto do KPI -->
+                    <p class="text-3xl font-bold text-green-900">+36.19 p.p.</p>
+                    
+                    <!-- Botão "Explicação" (Substituindo o (?) ) -->
+                    <span class="mt-1 inline-block bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold py-1 px-2 rounded-md cursor-help">
+                        Explicação
+                    </span>
+
+                    <!-- O Tooltip (Explicação para leigos) -->
+                    <div class="absolute bottom-full left-1/2 -translate-x-1/2 z-10 w-64 p-3
+                                bg-gray-800 text-white text-sm text-left rounded-lg shadow-lg
+                                opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none
+                                mb-2">
+                        <strong>O que é "p.p."?</strong>
+                        <p class="mt-1 font-normal">"p.p." (pontos percentuais) mostra a diferença simples entre duas porcentagens.</p>
+                        <p class="mt-2 font-normal">Significa que a média da turma "andou" 36,19 pontos (de 23,81% para 60,00%). Usamos "p.p." para não confundir com um aumento de 36,19% (que seria um cálculo de proporção).</p>
+                    </div>
+                </div>
+
+                <!-- EXPLICAÇÃO ANTIGA (REMOVIDA) -->
+                <!-- <p class="text-xs text-gray-600 italic mt-1">(p.p. = pontos percentuais)</p> -->
             </div>
             <div class="text-center p-4 bg-green-100 rounded-lg shadow-sm">
                 <p class="text-sm font-medium text-green-800">Alunos que Melhoraram %</p>
