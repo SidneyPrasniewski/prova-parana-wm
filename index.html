@@ -53,8 +53,7 @@
                 <!-- SUBTÍTULO ATUALIZADO (CONFORME SOLICITADO) -->
                 <p class="text-lg text-blue-100 mt-1">Sua evolução entre a 1ª e a 2ª Edição (1º Ano Ensino Médio)</p>
             </div>
-            
-            <!-- CONTAINER DAS DUAS LOGOS (COM PLACEHOLDERS E TÍTULOS) -->
+            <!-- CONTAINER DAS DUAS LOGOS (AGORA COM CAMINHOS RELATIVOS CORRETOS) -->
             <div class="flex-shrink-0 ml-6 flex items-center space-x-4">
                 
                 <!-- 
@@ -64,15 +63,16 @@
                   Exemplo: <img src="logoWM.png" alt="Logo Colégio WM" class="h-16 w-auto">
                 -->
                 
-                <!-- Placeholder Logo 1 (Paraná Integral) -->
-                <div class="h-16 w-32 rounded-md border-2 border-dashed border-blue-300 bg-blue-700 flex items-center justify-center p-2 text-center">
-                    <span class="text-xs font-medium text-blue-200">logo_parana_integral690x690.png</span>
-                </div>
+                <!-- 
+                  NOTA: As tags <img> abaixo usam caminhos relativos.
+                  Elas funcionarão no GitHub Pages, mas não aparecerão no "Preview".
+                -->
+
+                <!-- Logo 1 (Paraná Integral) - Carregando do repositório -->
+                <img src="logo_parana_integral690x690_0.png" alt="Logo Paraná Integral" class="h-16 w-auto bg-white rounded-sm p-1">
                 
-                <!-- Placeholder Logo 2 (Colégio WM) -->
-                <div class="h-16 w-32 rounded-md border-2 border-dashed border-blue-300 bg-blue-700 flex items-center justify-center p-2 text-center">
-                    <span class="text-xs font-medium text-blue-200">logoWM.png</span>
-                </div>
+                <!-- Logo 2 (Colégio WM) - Carregando do repositório -->
+                <img src="logoWM.png" alt="Logo Colégio WM" class="h-16 w-auto bg-white rounded-sm p-1">
 
             </div>
         </header>
