@@ -64,30 +64,22 @@
 
     <div class="max-w-7xl mx-auto bg-white shadow-2xl rounded-lg overflow-hidden">
         
-        <!-- Cabeçalho (INALTERADO) -->
-        <header class="bg-blue-800 text-white p-6 shadow-md flex justify-between items-center">
-            <!-- Container para o Título e Subtítulo -->
-            <div>
-                <!-- TÍTULO ATUALIZADO -->
+        <!-- Cabeçalho (COM AJUSTES DE LOGO) --><header class="bg-blue-800 text-white p-6 shadow-md flex justify-between items-center">
+            <!-- Container para o Título e Subtítulo --><div>
                 <h1 class="text-2xl font-bold">Jornada na Prova Paraná - Disciplina: Pensamento Computacional 1º Ano Ensino Médio.</h1>
-                <!-- SUBTÍTULO ATUALIZADO (CONFORME SOLICITADO) -->
                 <p class="text-lg text-blue-100 mt-1">Sua evolução entre a 1ª e a 2ª Edição (1º Ano Ensino Médio)</p>
             </div>
             
-            <!-- CONTAINER DAS DUAS LOGOS (COM CAMINHOS RELATIVOS) -->
-            <div class="flex-shrink-0 ml-6 flex items-center space-x-4">
+            <!-- CONTAINER DAS DUAS LOGOS (REMOVIDO mix-blend-multiply e AUMENTADO TAMANHO) --><div class="flex-shrink-0 ml-6 flex items-center space-x-4">
                 
-                <!-- Logo 1 (Paraná Integral) -->
-                <img src="logo_parana_integral690x690_0.png" alt="Logo Paraná Integral" class="h-20 w-auto mix-blend-multiply">
+                <!-- Logo 1 (Paraná Integral) --><img src="logo_parana_integral690x690_0.png" alt="Logo Paraná Integral" class="h-28 w-auto"> 
                 
-                <!-- Logo 2 (Colégio WM) -->
-                <img src="logoWM.png" alt="Logo Colégio WM" class="h-20 w-auto mix-blend-multiply">
+                <!-- Logo 2 (Colégio WM) --><img src="logoWM.png" alt="Logo Colégio WM" class="h-28 w-auto">
 
             </div>
         </header>
 
-        <!-- Seção de Métricas Principais (KPIs) (INALTERADO) -->
-        <section class="bg-white p-6 grid grid-cols-2 md:grid-cols-4 gap-4 border-b border-gray-200">
+        <!-- Seção de Métricas Principais (KPIs) (INALTERADO) --><section class="bg-white p-6 grid grid-cols-2 md:grid-cols-4 gap-4 border-b border-gray-200">
             <div class="text-center p-4 bg-blue-100 rounded-lg shadow-sm">
                 <p class="text-sm font-medium text-blue-800">Média de Acertos (1ª Edição)</p>
                 <p class="text-3xl font-bold text-blue-900">23.81%</p>
@@ -99,19 +91,15 @@
             <div class="text-center p-4 bg-green-100 rounded-lg shadow-sm">
                 <p class="text-sm font-medium text-green-800">Evolução da Média (P2 vs P1)</p>
                 
-                <!-- Wrapper para o Tooltip (Hover) -->
-                <div class="relative group inline-block">
+                <!-- Wrapper para o Tooltip (Hover) --><div class="relative group inline-block">
                     
-                    <!-- Texto do KPI -->
-                    <p class="text-3xl font-bold text-green-900">+36.19 p.p.</p>
+                    <!-- Texto do KPI --><p class="text-3xl font-bold text-green-900">+36.19 p.p.</p>
                     
-                    <!-- Botão "Explicação" (Substituindo o (?) ) -->
-                    <span class="mt-1 inline-block bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold py-1 px-2 rounded-md cursor-help">
+                    <!-- Botão "Explicação" (Substituindo o (?) ) --><span class="mt-1 inline-block bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold py-1 px-2 rounded-md cursor-help">
                         Explicação
                     </span>
 
-                    <!-- O Tooltip (Explicação para leigos) - AJUSTADO PARA ABRIR PARA BAIXO -->
-                    <div class="absolute top-full left-1/2 -translate-x-1/2 z-10 w-64 p-3
+                    <!-- O Tooltip (Explicação para leigos) - AJUSTADO PARA ABRIR PARA BAIXO --><div class="absolute top-full left-1/2 -translate-x-1/2 z-10 w-64 p-3
                                 bg-gray-800 text-white text-sm text-left rounded-lg shadow-lg
                                 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none
                                 mt-2">
@@ -127,26 +115,21 @@
             </div>
         </section>
 
-        <!-- Container Principal (PÁGINAS) (INALTERADO) -->
-        <main class="p-6 md:p-8">
+        <!-- Container Principal (PÁGINAS) (INALTERADO) --><main class="p-6 md:p-8">
 
-            <!-- PÁGINA 1: Início (Gráficos) (INALTERADO) -->
-            <div id="page-home">
+            <!-- PÁGINA 1: Início (Gráficos) (INALTERADO) --><div id="page-home">
                 <section id="visualizacao">
-                    <!-- TÍTULO SEM NÚMERO -->
-                    <h2 class="text-2xl font-semibold text-gray-800 border-b-2 border-blue-400 pb-2 mb-4">O Retrato da Turma (21 na 1ª Edição, 20 na 2ª)</h2>
+                    <!-- TÍTULO SEM NÚMERO --><h2 class="text-2xl font-semibold text-gray-800 border-b-2 border-blue-400 pb-2 mb-4">O Retrato da Turma (21 na 1ª Edição, 20 na 2ª)</h2>
                     <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
                         
-                        <!-- Gráfico 1: Distribuição de Desempenho (Gráfico de Barras/Torre) -->
-                        <div class="md:col-span-3 bg-blue-50 p-4 rounded-lg shadow-inner">
+                        <!-- Gráfico 1: Distribuição de Desempenho (Gráfico de Barras/Torre) --><div class="md:col-span-3 bg-blue-50 p-4 rounded-lg shadow-inner">
                             <h3 class="font-bold text-lg text-center mb-4 text-blue-900">Distribuição da % de Acertos (1ª vs 2ª Edição)</h3>
                             <div id="chart-container" class="relative">
                                 <canvas id="distribuicaoChart"></canvas>
                             </div>
                         </div>
 
-                        <!-- Gráfico 2: Status da Evolução (Gráfico de Pizza) -->
-                        <div class="md:col-span-2 bg-blue-50 p-4 rounded-lg shadow-inner">
+                        <!-- Gráfico 2: Status da Evolução (Gráfico de Pizza) --><div class="md:col-span-2 bg-blue-50 p-4 rounded-lg shadow-inner">
                              <h3 class="font-bold text-lg text-center mb-4 text-blue-900">Nossa Jornada</h3>
                              <div id="chart-container" class="relative">
                                 <canvas id="evolucaoChart"></canvas>
@@ -156,8 +139,7 @@
                 </section>
             </div>
 
-            <!-- Menu de Navegação (Botões) (INALTERADO) -->
-            <nav class="mt-8 border-t border-gray-200 pt-6 flex flex-col md:flex-row justify-center gap-4">
+            <!-- Menu de Navegação (Botões) (INALTERADO) --><nav class="mt-8 border-t border-gray-200 pt-6 flex flex-col md:flex-row justify-center gap-4">
                 <button id="btn-conquistas" class="page-button bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-300">
                     🏆 Conquistas e Reflexões
                 </button>
@@ -169,17 +151,14 @@
                 </button>
             </nav>
 
-            <!-- PÁGINA 2: Conquistas (Oculta por padrão) (INALTERADO) -->
-            <div id="page-conquistas" class="hidden mt-8">
-                <!-- BOTÃO VOLTAR (ATUALIZADO) -->
-                <button class="btn-voltar mb-4 text-sm font-medium
+            <!-- PÁGINA 2: Conquistas (Oculta por padrão) (INALTERADO) --><div id="page-conquistas" class="hidden mt-8">
+                <!-- BOTÃO VOLTAR (ATUALIZADO) --><button class="btn-voltar mb-4 text-sm font-medium
                                bg-blue-600 text-white hover:bg-blue-700
                                py-2 px-4 rounded-lg shadow-sm transition-colors duration-200">
                     &larr; Início
                 </button>
                 <section id="observacoes">
-                    <!-- TÍTULO SEM NÚMERO -->
-                    <h2 class="text-2xl font-semibold text-gray-800 border-b-2 border-blue-400 pb-2 mb-4">Conquistas e Reflexões da Turma</h2>
+                    <!-- TÍTULO SEM NÚMERO --><h2 class="text-2xl font-semibold text-gray-800 border-b-2 border-blue-400 pb-2 mb-4">Conquistas e Reflexões da Turma</h2>
                     
                     <div class="space-y-4 max-w-4xl mx-auto">
                         
@@ -212,17 +191,14 @@
                 </section>
             </div>
 
-            <!-- PÁGINA 3: Jornada (Oculta por padrão) (INALTERADO) -->
-            <div id="page-jornada" class="hidden mt-8">
-                <!-- BOTÃO VOLTAR (ATUALIZADO) -->
-                <button class="btn-voltar mb-4 text-sm font-medium
+            <!-- PÁGINA 3: Jornada (Oculta por padrão) (INALTERADO) --><div id="page-jornada" class="hidden mt-8">
+                <!-- BOTÃO VOLTAR (ATUALIZADO) --><button class="btn-voltar mb-4 text-sm font-medium
                                bg-blue-600 text-white hover:bg-blue-700
                                py-2 px-4 rounded-lg shadow-sm transition-colors duration-200">
                     &larr; Início
                 </button>
                 <section id="proximos-passos">
-                    <!-- TÍTULO SEM NÚMERO -->
-                    <h2 class="text-2xl font-semibold text-gray-800 border-b-2 border-blue-400 pb-2 mb-4">O Que Levar Desta Jornada</h2>
+                    <!-- TÍTULO SEM NÚMERO --><h2 class="text-2xl font-semibold text-gray-800 border-b-2 border-blue-400 pb-2 mb-4">O Que Levar Desta Jornada</h2>
                      <div class="space-y-4 max-w-4xl mx-auto">
                         <div class="bg-white border border-gray-200 p-6 rounded-lg shadow">
                             <h3 class="font-bold text-lg text-blue-800">Uma Mensagem Final para Vocês</h3>
@@ -240,38 +216,31 @@
                 </section>
             </div>
 
-            <!-- PÁGINA 4: Evolução Individual (Oculta por padrão) (INALTERADO) -->
-            <div id="page-evolucao" class="hidden mt-8">
-                <!-- BOTÃO VOLTAR (ATUALIZADO) -->
-                <button class="btn-voltar mb-4 text-sm font-medium
+            <!-- PÁGINA 4: Evolução Individual (Oculta por padrão) (INALTERADO) --><div id="page-evolucao" class="hidden mt-8">
+                <!-- BOTÃO VOLTAR (ATUALIZADO) --><button class="btn-voltar mb-4 text-sm font-medium
                                bg-blue-600 text-white hover:bg-blue-700
                                py-2 px-4 rounded-lg shadow-sm transition-colors duration-200">
                     &larr; Início
                 </button>
                 
-                <!-- Layout da página de evolução: LISTA ÚNICA EM ACORDEÃO (INALTERADO) -->
-                <div class="w-full max-w-4xl mx-auto bg-blue-100 p-6 rounded-lg shadow-lg">
+                <!-- Layout da página de evolução: LISTA ÚNICA EM ACORDEÃO (INALTERADO) --><div class="w-full max-w-4xl mx-auto bg-blue-100 p-6 rounded-lg shadow-lg">
                     
                     <h2 class="text-2xl font-semibold text-blue-900 border-b-2 border-blue-400 pb-2 mb-4">Sua Evolução Individual</h2>
                     
-                    <!-- EXPLICAÇÃO SUCINTA (Mantida) -->
-                    <div class="bg-yellow-100 border border-yellow-300 text-yellow-900 p-3 rounded-md mb-4 text-sm">
+                    <!-- EXPLICAÇÃO SUCINTA (Mantida) --><div class="bg-yellow-100 border border-yellow-300 text-yellow-900 p-3 rounded-md mb-4 text-sm">
                         <strong>Como funciona?</strong>
                         <p>É simples: clique no seu nome na lista abaixo para ver sua jornada em detalhes.</p>
                     </div>
 
-                    <!-- Lista de Alunos (Clicável) - Agora vai conter o acordeão -->
-                    <div id="student-list" class="bg-white rounded-lg shadow-inner border border-gray-200">
-                        <!-- Alunos e seus painéis de detalhe serão inseridos aqui pelo JavaScript -->
-                    </div>
+                    <!-- Lista de Alunos (Clicável) - Agora vai conter o acordeão --><div id="student-list" class="bg-white rounded-lg shadow-inner border border-gray-200">
+                        <!-- Alunos e seus painéis de detalhe serão inseridos aqui pelo JavaScript --></div>
                 </div>
             </div>
 
         </main>
     </div>
 
-    <!-- JavaScript para Gráficos e Interatividade -->
-    <script>
+    <!-- JavaScript para Gráficos e Interatividade --><script>
         // --- 1. DADOS DOS ALUNOS (INALTERADO) ---
         const studentRawData = [
             // P1 e P2 (18 alunos)
@@ -617,19 +586,15 @@
                         <div class="p-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 
-                                <!-- Coluna 1: Gráficos e Mensagem -->
-                                <div>
-                                    <!-- Status com Animação TikTok -->
-                                    <p class="status-text ${aluno.statusColor} text-2xl font-semibold">${aluno.statusText}</p>
+                                <!-- Coluna 1: Gráficos e Mensagem --><div>
+                                    <!-- Status com Animação TikTok --><p class="status-text ${aluno.statusColor} text-2xl font-semibold">${aluno.statusText}</p>
                                     
-                                    <!-- Barras de Progresso -->
-                                    <div class="mt-6 space-y-4">
+                                    <!-- Barras de Progresso --><div class="mt-6 space-y-4">
                                         ${p1BarHTML}
                                         ${p2BarHTML}
                                     </div>
 
-                                    <!-- Mensagem -->
-                                    <div class="mt-8">
+                                    <!-- Mensagem --><div class="mt-8">
                                         <p class="font-semibold text-blue-800 text-lg">Uma mensagem para você:</p>
                                         <blockquote class="border-l-4 border-blue-300 pl-4 italic text-gray-700 mt-2 text-base">
                                             ${aluno.sugestao}
@@ -637,11 +602,9 @@
                                     </div>
                                 </div>
 
-                                <!-- Coluna 2: Emojis e Botão (INALTERADO) -->
-                                <div class="flex flex-col justify-between items-center text-center p-4 bg-white rounded-lg shadow-inner min-h-[250px]">
+                                <!-- Coluna 2: Emojis e Botão (INALTERADO) --><div class="flex flex-col justify-between items-center text-center p-4 bg-white rounded-lg shadow-inner min-h-[250px]">
                                     
-                                    <!-- EMOJIS (NOVO) -->
-                                    ${emojiHTML}
+                                    <!-- EMOJIS (NOVO) -->${emojiHTML}
                                     
                                     <a href="https://forms.gle/SSSYWgGuoNdL3UQT8" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-200 shadow-md text-lg">
                                         Deixar minha Reflexão
