@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sua Jornada na Prova Paraná</title>
-    <!-- Carrega o Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
-    <!-- Carrega o Chart.js para gráficos --><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         /* Fonte Inter */
         body {
             font-family: "Inter", sans-serif;
         }
-        /* Estilo para a barra de progresso (usada no detalhe do aluno) */
+        /* Estilo para a barra de progresso */
         .progress-bar-bg {
-            background-color: #e0e0e0; /* Fundo cinza claro */
+            background-color: #e0e0e0;
             border-radius: 0.5rem;
             overflow: hidden;
             height: 1.5rem;
@@ -26,9 +26,10 @@
             font-size: 0.875rem;
             font-weight: bold;
             color: white;
-            transition: width 0.6s ease;
+            /* ANIMAÇÃO DAS BARRAS (AGORA ACIONADA VIA JS) */
+            transition: width 0.8s ease-out; /* Duração da animação da barra */
         }
-        /* Altura fixa para a lista de alunos e gráficos para melhor layout */
+        /* Altura fixa para a lista de alunos e gráficos */
         #student-list {
             max-height: 450px;
             overflow-y: auto;
@@ -36,27 +37,57 @@
         #chart-container {
             height: 350px;
         }
+
+        /* Animação "TikTok" (Pulse Zoom) para o Status do Aluno */
+        @keyframes pulseZoom {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+        .animate-pulseZoom {
+            animation: pulseZoom 0.5s ease-in-out;
+        }
+        
+        /* Estilos para o Acordeão (Painel Dropdown) */
+        .details-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background-color: #f8fafc; /* bg-gray-50 */
+        }
+        .details-panel.open {
+            max-height: 1000px; /* Altura suficiente para o conteúdo */
+            transition: max-height 0.7s ease-in;
+        }
     </style>
 </head>
 <body class="bg-gray-100 p-4 md:p-8">
 
     <div class="max-w-7xl mx-auto bg-white shadow-2xl rounded-lg overflow-hidden">
         
-        <!-- Cabeçalho com cores da logoWM --><header class="bg-blue-800 text-white p-6 shadow-md flex justify-between items-center">
-            <!-- Container para o Título e Subtítulo --><div>
-                <!-- TÍTULO --><h1 class="text-2xl font-bold">Jornada na Prova Paraná - Disciplina: Pensamento Computacional 1º Ano Ensino Médio.</h1>
-                <!-- SUBTÍTULO --><p class="text-lg text-blue-100 mt-1">Sua evolução entre a 1ª e a 2ª Edição (1º Ano Ensino Médio)</p>
+        <!-- Cabeçalho (INALTERADO) -->
+        <header class="bg-blue-800 text-white p-6 shadow-md flex justify-between items-center">
+            <!-- Container para o Título e Subtítulo -->
+            <div>
+                <!-- TÍTULO ATUALIZADO -->
+                <h1 class="text-2xl font-bold">Jornada na Prova Paraná - Disciplina: Pensamento Computacional 1º Ano Ensino Médio.</h1>
+                <!-- SUBTÍTULO ATUALIZADO (CONFORME SOLICITADO) -->
+                <p class="text-lg text-blue-100 mt-1">Sua evolução entre a 1ª e a 2ª Edição (1º Ano Ensino Médio)</p>
             </div>
-            <!-- CONTAINER DAS DUAS LOGOS --><div class="flex-shrink-0 ml-6 flex items-center space-x-4">
+            
+            <!-- CONTAINER DAS DUAS LOGOS (COM CAMINHOS RELATIVOS) -->
+            <div class="flex-shrink-0 ml-6 flex items-center space-x-4">
                 
-                <!-- Logo 1 (Paraná Integral) - Aumentada e sem fundo branco --><img src="logo_parana_integral690x690_0.png" alt="Logo Paraná Integral" class="h-20 w-auto">
+                <!-- Logo 1 (Paraná Integral) -->
+                <img src="logo_parana_integral690x690_0.png" alt="Logo Paraná Integral" class="h-20 w-auto mix-blend-multiply">
                 
-                <!-- Logo 2 (Colégio WM) - Aumentada e sem fundo branco --><img src="logoWM.png" alt="Logo Colégio WM" class="h-20 w-auto">
+                <!-- Logo 2 (Colégio WM) -->
+                <img src="logoWM.png" alt="Logo Colégio WM" class="h-20 w-auto mix-blend-multiply">
 
             </div>
         </header>
 
-        <!-- Seção de Métricas Principais (KPIs) - Cores ajustadas --><section class="bg-white p-6 grid grid-cols-2 md:grid-cols-4 gap-4 border-b border-gray-200">
+        <!-- Seção de Métricas Principais (KPIs) (INALTERADO) -->
+        <section class="bg-white p-6 grid grid-cols-2 md:grid-cols-4 gap-4 border-b border-gray-200">
             <div class="text-center p-4 bg-blue-100 rounded-lg shadow-sm">
                 <p class="text-sm font-medium text-blue-800">Média de Acertos (1ª Edição)</p>
                 <p class="text-3xl font-bold text-blue-900">23.81%</p>
@@ -89,9 +120,6 @@
                         <p class="mt-2 font-normal">Significa que a média da turma "andou" 36,19 pontos (de 23,81% para 60,00%). Usamos "p.p." para não confundir com um aumento de 36,19% (que seria um cálculo de proporção).</p>
                     </div>
                 </div>
-
-                <!-- EXPLICAÇÃO ANTIGA (REMOVIDA) -->
-                <!-- <p class="text-xs text-gray-600 italic mt-1">(p.p. = pontos percentuais)</p> -->
             </div>
             <div class="text-center p-4 bg-green-100 rounded-lg shadow-sm">
                 <p class="text-sm font-medium text-green-800">Alunos que Melhoraram %</p>
@@ -99,22 +127,26 @@
             </div>
         </section>
 
-        <main class="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            <!-- Coluna Principal (Gráficos e Observações) --><div class="lg:col-span-2 space-y-8">
+        <!-- Container Principal (PÁGINAS) (INALTERADO) -->
+        <main class="p-6 md:p-8">
 
-                <!-- Seção de Gráficos Visuais --><section id="visualizacao">
-                    <h2 class="text-2xl font-semibold text-gray-800 border-b-2 border-blue-400 pb-2 mb-4">1. O Retrato da Turma (21 na 1ª Edição, 20 na 2ª)</h2>
+            <!-- PÁGINA 1: Início (Gráficos) (INALTERADO) -->
+            <div id="page-home">
+                <section id="visualizacao">
+                    <!-- TÍTULO SEM NÚMERO -->
+                    <h2 class="text-2xl font-semibold text-gray-800 border-b-2 border-blue-400 pb-2 mb-4">O Retrato da Turma (21 na 1ª Edição, 20 na 2ª)</h2>
                     <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
                         
-                        <!-- Gráfico 1: Distribuição de Desempenho (Gráfico de Barras/Torre) --><div class="md:col-span-3 bg-blue-50 p-4 rounded-lg shadow-inner">
+                        <!-- Gráfico 1: Distribuição de Desempenho (Gráfico de Barras/Torre) -->
+                        <div class="md:col-span-3 bg-blue-50 p-4 rounded-lg shadow-inner">
                             <h3 class="font-bold text-lg text-center mb-4 text-blue-900">Distribuição da % de Acertos (1ª vs 2ª Edição)</h3>
                             <div id="chart-container" class="relative">
                                 <canvas id="distribuicaoChart"></canvas>
                             </div>
                         </div>
 
-                        <!-- Gráfico 2: Status da Evolução (Gráfico de Pizza) --><div class="md:col-span-2 bg-blue-50 p-4 rounded-lg shadow-inner">
+                        <!-- Gráfico 2: Status da Evolução (Gráfico de Pizza) -->
+                        <div class="md:col-span-2 bg-blue-50 p-4 rounded-lg shadow-inner">
                              <h3 class="font-bold text-lg text-center mb-4 text-blue-900">Nossa Jornada</h3>
                              <div id="chart-container" class="relative">
                                 <canvas id="evolucaoChart"></canvas>
@@ -122,29 +154,52 @@
                         </div>
                     </div>
                 </section>
+            </div>
 
-                <!-- Seção de Observações --><section id="observacoes">
-                    <h2 class="text-2xl font-semibold text-gray-800 border-b-2 border-blue-400 pb-2 mb-4">2. Conquistas e Reflexões da Turma</h2>
+            <!-- Menu de Navegação (Botões) (INALTERADO) -->
+            <nav class="mt-8 border-t border-gray-200 pt-6 flex flex-col md:flex-row justify-center gap-4">
+                <button id="btn-conquistas" class="page-button bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-300">
+                    🏆 Conquistas e Reflexões
+                </button>
+                <button id="btn-jornada" class="page-button bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-300">
+                    🏁 O Que Levar Desta Jornada
+                </button>
+                <button id="btn-evolucao" class="page-button bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-300">
+                    🚀 Sua Evolução Individual
+                </button>
+            </nav>
+
+            <!-- PÁGINA 2: Conquistas (Oculta por padrão) (INALTERADO) -->
+            <div id="page-conquistas" class="hidden mt-8">
+                <!-- BOTÃO VOLTAR (ATUALIZADO) -->
+                <button class="btn-voltar mb-4 text-sm font-medium
+                               bg-blue-600 text-white hover:bg-blue-700
+                               py-2 px-4 rounded-lg shadow-sm transition-colors duration-200">
+                    &larr; Início
+                </button>
+                <section id="observacoes">
+                    <!-- TÍTULO SEM NÚMERO -->
+                    <h2 class="text-2xl font-semibold text-gray-800 border-b-2 border-blue-400 pb-2 mb-4">Conquistas e Reflexões da Turma</h2>
                     
-                    <div class="space-y-4">
+                    <div class="space-y-4 max-w-4xl mx-auto">
                         
                         <div class="bg-green-50 border border-green-200 p-4 rounded-lg shadow-sm">
-                            <h3 class="font-bold text-lg text-green-800">1. A "Virada de Jogo" da Turma!</h3>
-                            <p class="text-gray-700">Parabéns a todos! A média de acertos da turma saltou de **23.81%** (P1) para **60.00%** (P2). Dos 18 alunos que fizeram as duas provas, 83.3% (15 alunos) melhoraram seu percentual. Um resultado fantástico!</p>
+                            <h3 class="font-bold text-lg text-green-800">A "Virada de Jogo" da Turma!</h3>
+                            <p class="text-gray-700">Parabéns a todos! A média de acertos da turma saltou de 23.81% (P1) para 60.00% (P2). Dos 18 alunos que fizeram as duas provas, 83.3% (15 alunos) melhoraram seu percentual. Um resultado fantástico!</p>
                         </div>
                         
                         <div class="bg-cyan-50 border border-cyan-200 p-4 rounded-lg shadow-sm">
-                            <h3 class="font-bold text-lg text-cyan-800">2. Superando o Desafio Inicial</h3>
+                            <h3 class="font-bold text-lg text-cyan-800">Superando o Desafio Inicial</h3>
                             <p class="text-gray-700">Na 1ª Edição, 9 alunos começaram com 0% de acertos. Na 2ª Edição, **todos** eles pontuaram. Quatro deles (Amanda, Leticia, Luis Gustavo e Samuel) deram um salto direto para 66.67% de acertos. Nossas boas-vindas à Sara e Laysla, que já começaram na 2ª Edição com ótimos 66.67%!</p>
                         </div>
 
                         <div class="bg-cyan-50 border border-cyan-200 p-4 rounded-lg shadow-sm">
-                            <h3 class="font-bold text-lg text-cyan-800">3. O Novo Patamar da Turma</h3>
+                            <h3 class="font-bold text-lg text-cyan-800">O Novo Patamar da Turma</h3>
                             <p class="text-gray-700">A turma que se concentrava em percentuais mais baixos agora se moveu para cima. Na 2ª Edição, **70%** da turma (14 de 20 alunos) alcançou o patamar de 66.67% de acertos.</p>
                         </div>
 
                         <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-lg shadow-sm">
-                            <h3 class="font-bold text-lg text-yellow-800">4. Pontos de Reflexão (Queda ou Estagnação)</h3>
+                            <h3 class="font-bold text-lg text-yellow-800">Pontos de Reflexão (Queda ou Estagnação)</h3>
                             <p class="text-gray-700">Alguns colegas tiveram queda ou mantiveram o percentual de acertos. Isso é **absolutamente normal** no processo de aprender.</p>
                             <ul class="list-disc list-inside ml-4 text-gray-700">
                                 <li>**Letícia Aiko (100% -> 66.67%):** Começou no topo. Manter-se com um ótimo percentual é um desafio.</li>
@@ -155,11 +210,21 @@
                         </div>
                     </div>
                 </section>
+            </div>
 
-                <!-- Seção Próximos Passos (AGORA MENSAGEM FINAL) --><section id="proximos-passos">
-                    <h2 class="text-2xl font-semibold text-gray-800 border-b-2 border-blue-400 pb-2 mb-4">3. O Que Levar Desta Jornada</h2>
-                     <div class="space-y-4">
-                        <div class="bg-white border border-gray-200 p-4 rounded-lg shadow">
+            <!-- PÁGINA 3: Jornada (Oculta por padrão) (INALTERADO) -->
+            <div id="page-jornada" class="hidden mt-8">
+                <!-- BOTÃO VOLTAR (ATUALIZADO) -->
+                <button class="btn-voltar mb-4 text-sm font-medium
+                               bg-blue-600 text-white hover:bg-blue-700
+                               py-2 px-4 rounded-lg shadow-sm transition-colors duration-200">
+                    &larr; Início
+                </button>
+                <section id="proximos-passos">
+                    <!-- TÍTULO SEM NÚMERO -->
+                    <h2 class="text-2xl font-semibold text-gray-800 border-b-2 border-blue-400 pb-2 mb-4">O Que Levar Desta Jornada</h2>
+                     <div class="space-y-4 max-w-4xl mx-auto">
+                        <div class="bg-white border border-gray-200 p-6 rounded-lg shadow">
                             <h3 class="font-bold text-lg text-blue-800">Uma Mensagem Final para Vocês</h3>
                             <p class="mt-2 text-gray-700">
                                 Parabéns pela incrível evolução que vocês mostraram! Mais do que os números da Prova Paraná, o que vimos aqui foi a capacidade da turma de focar em um desafio e crescer. Muitos de vocês deram saltos impressionantes, saindo do zero e alcançando ótimos resultados.
@@ -175,63 +240,39 @@
                 </section>
             </div>
 
-            <!-- Coluna Lateral (Análise Individual Interativa) --><aside class="lg:col-span-1 bg-blue-100 p-6 rounded-lg shadow-lg sticky top-8">
-                <h2 class="text-2xl font-semibold text-blue-900 border-b-2 border-blue-400 pb-2 mb-4">Sua Evolução Individual</h2>
+            <!-- PÁGINA 4: Evolução Individual (Oculta por padrão) (INALTERADO) -->
+            <div id="page-evolucao" class="hidden mt-8">
+                <!-- BOTÃO VOLTAR (ATUALIZADO) -->
+                <button class="btn-voltar mb-4 text-sm font-medium
+                               bg-blue-600 text-white hover:bg-blue-700
+                               py-2 px-4 rounded-lg shadow-sm transition-colors duration-200">
+                    &larr; Início
+                </button>
                 
-                <p class="text-sm text-gray-700 mb-4">Clique no seu nome para ver seu desempenho e uma mensagem sobre sua jornada.</p>
-
-                <!-- Lista de Alunos (Clicável) --><div id="student-list" class="bg-white rounded-lg shadow-inner border border-gray-200 divide-y divide-gray-200">
-                    <!-- Alunos serão inseridos aqui pelo JavaScript --></div>
-
-                <!-- Card de Detalhe do Aluno (Placeholder) --><div id="student-detail-card" class="mt-6 p-4 bg-white rounded-lg shadow-md border border-gray-200 hidden">
-                    <h3 id="detail-nome" class="text-2xl font-bold text-blue-900"></h3>
-                    <p id="detail-status" class="text-lg font-semibold"></p>
+                <!-- Layout da página de evolução: LISTA ÚNICA EM ACORDEÃO (INALTERADO) -->
+                <div class="w-full max-w-4xl mx-auto bg-blue-100 p-6 rounded-lg shadow-lg">
                     
-                    <div class="mt-4 space-y-3">
-                        <!-- Comparativo P1 vs P2 --><div>
-                            <div class="flex justify-between text-sm font-medium text-gray-600">
-                                <span>Prova 1ª Edição (% Acerto)</span>
-                                <span id="detail-p1-label"></span>
-                            </div>
-                            <div class="w-full progress-bar-bg">
-                                <div id="detail-p1-bar" class="progress-bar bg-gray-500 text-gray-800"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-sm font-medium text-gray-600">
-                                <span>Prova 2ª Edição (% Acerto)</span>
-                                <span id="detail-p2-label"></span>
-                            </div>
-                            <div class="w-full progress-bar-bg">
-                                <div id="detail-p2-bar" class="progress-bar"></div>
-                            </div>
-                        </div>
+                    <h2 class="text-2xl font-semibold text-blue-900 border-b-2 border-blue-400 pb-2 mb-4">Sua Evolução Individual</h2>
+                    
+                    <!-- EXPLICAÇÃO SUCINTA (Mantida) -->
+                    <div class="bg-yellow-100 border border-yellow-300 text-yellow-900 p-3 rounded-md mb-4 text-sm">
+                        <strong>Como funciona?</strong>
+                        <p>É simples: clique no seu nome na lista abaixo para ver sua jornada em detalhes.</p>
                     </div>
 
-                    <!-- Sugestão de Feedback --><div class="mt-6">
-                        <p class="font-semibold text-blue-800">Uma mensagem para você:</p>
-                        <blockquote id="detail-sugestao" class="border-l-4 pl-3 italic text-gray-700 mt-2">
-                        </blockquote>
-                    </div>
-
-                    <!-- Botão de Feedback (Novo) --><div class="mt-6 text-center border-t border-gray-200 pt-4">
-                        <a href="https://forms.gle/SSSYWgGuoNdL3UQT8" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition-colors duration-200 shadow-md">
-                            Deixar minha Reflexão
-                        </a>
+                    <!-- Lista de Alunos (Clicável) - Agora vai conter o acordeão -->
+                    <div id="student-list" class="bg-white rounded-lg shadow-inner border border-gray-200">
+                        <!-- Alunos e seus painéis de detalhe serão inseridos aqui pelo JavaScript -->
                     </div>
                 </div>
-
-                 <div id="student-detail-placeholder" class="mt-6 p-4 bg-white rounded-lg shadow-md border border-gray-200 text-center text-gray-500">
-                    <p>Selecione seu nome na lista acima.</p>
-                </div>
-
-            </aside>
+            </div>
 
         </main>
     </div>
 
-    <!-- JavaScript para Gráficos e Interatividade --><script>
-        // --- 1. DADOS DOS ALUNOS (DADOS CORRETOS E FINAIS) ---
+    <!-- JavaScript para Gráficos e Interatividade -->
+    <script>
+        // --- 1. DADOS DOS ALUNOS (INALTERADO) ---
         const studentRawData = [
             // P1 e P2 (18 alunos)
             { nome: 'AMANDA', p1: 0.00, p2: 66.67 },
@@ -263,7 +304,7 @@
             { nome: 'LAYSLA', p1: null, p2: 66.67 }
         ];
 
-        // --- 2. PROCESSAMENTO DOS DADOS (CÁLCULO E SUGESTÕES PEDAGÓGICAS) ---
+        // --- 2. PROCESSAMENTO DOS DADOS (INALTERADO) ---
         const studentData = studentRawData.map(aluno => {
             
             // Lógica para NOVOS ALUNOS (p1 é null)
@@ -327,7 +368,7 @@
             return { ...aluno, evolucao, status, statusText, statusColor, sugestao };
         });
 
-        // --- 3. LÓGICA DOS GRÁFICOS (CHART.JS) ---
+        // --- 3. LÓGICA DOS GRÁFICOS (CHART.JS) (INALTERADO) ---
         document.addEventListener('DOMContentLoaded', () => {
             // --- Gráfico de Barras (Distribuição) ---
             const ctxBar = document.getElementById('distribuicaoChart').getContext('2d');
@@ -462,30 +503,25 @@
                 }
             });
 
-            // --- 4. LÓGICA DA ANÁLISE INDIVIDUAL (CLIQUES) ---
-            const studentListContainer = document.getElementById('student-list');
-            const detailCard = document.getElementById('student-detail-card');
-            const detailPlaceholder = document.getElementById('student-detail-placeholder');
+            // --- 4. LÓGICA DA ANÁLISE INDIVIDUAL (ACORDEÃO COM EMOJIS) ---
             
-            // Elementos do Card de Detalhe
-            const detailNome = document.getElementById('detail-nome');
-            const detailStatus = document.getElementById('detail-status');
-            const detailP1Label = document.getElementById('detail-p1-label');
-            const detailP1Bar = document.getElementById('detail-p1-bar');
-            const detailP2Label = document.getElementById('detail-p2-label');
-            const detailP2Bar = document.getElementById('detail-p2-bar');
-            const detailSugestao = document.getElementById('detail-sugestao');
-
-            let lastSelectedButton = null;
+            const studentListContainer = document.getElementById('student-list');
+            let openPanel = null; // Controla qual painel está aberto
 
             studentData
                 .sort((a, b) => a.nome.localeCompare(b.nome)) // Ordena por nome
                 .forEach(aluno => {
+                    
+                    // 1. Container para o aluno (Botão + Painel)
+                    const studentEntry = document.createElement('div');
+                    studentEntry.className = 'border-b border-gray-200';
+
+                    // 2. Botão Clicável (Nome do Aluno)
                     const button = document.createElement('button');
-                    button.className = 'w-full text-left p-3 hover:bg-blue-50 transition duration-150 flex justify-between items-center';
+                    button.className = 'w-full text-left p-4 hover:bg-blue-50 transition duration-150 flex justify-between items-center';
                     
                     const nomeSpan = document.createElement('span');
-                    nomeSpan.className = 'font-medium text-gray-800';
+                    nomeSpan.className = 'font-medium text-gray-800 text-lg';
                     nomeSpan.textContent = aluno.nome;
                     
                     const statusSpan = document.createElement('span');
@@ -495,71 +531,219 @@
                     button.appendChild(nomeSpan);
                     button.appendChild(statusSpan);
 
+                    // 3. Painel de Detalhes (Oculto)
+                    const detailsPanel = document.createElement('div');
+                    detailsPanel.className = 'details-panel'; // Controlado por CSS (max-height)
+
+                    // 4. PREENCHER O PAINEL: Gerar o HTML interno
+                    
+                    // --- Lógica para Barras de Progresso (ATUALIZADA) ---
+                    let p1BarHTML = '';
+                    if (aluno.p1 === null) {
+                        p1BarHTML = `
+                            <div>
+                                <div class="flex justify-between text-sm font-medium text-gray-600">
+                                    <span>Prova 1ª Edição (% Acerto)</span>
+                                    <span>N/A (Não realizou)</span>
+                                </div>
+                                <div class="w-full progress-bar-bg">
+                                    <div class="progress-bar bg-gray-400" style="width: 0%;" data-target-width="0%">N/A</div>
+                                </div>
+                            </div>`;
+                    } else {
+                        const p1Text = `${aluno.p1.toFixed(2)}%`;
+                        p1BarHTML = `
+                            <div>
+                                <div class="flex justify-between text-sm font-medium text-gray-600">
+                                    <span>Prova 1ª Edição (% Acerto)</span>
+                                    <span>${p1Text}</span>
+                                </div>
+                                <div class="w-full progress-bar-bg">
+                                    <div class="progress-bar bg-blue-500" style="width: 0%;" data-target-width="${Math.max(aluno.p1, 5)}%">${p1Text}</div>
+                                </div>
+                            </div>`;
+                    }
+                    
+                    let p2BarHTML = '';
+                    if (aluno.p2 === null) {
+                        p2BarHTML = `
+                            <div>
+                                <div class="flex justify-between text-sm font-medium text-gray-600">
+                                    <span>Prova 2ª Edição (% Acerto)</span>
+                                    <span>N/A (Mudou de escola)</span>
+                                </div>
+                                <div class="w-full progress-bar-bg">
+                                    <div class="progress-bar bg-gray-400" style="width: 0%;" data-target-width="0%">N/A</div>
+                                </div>
+                            </div>`;
+                    } else {
+                        const p2Text = `${aluno.p2.toFixed(2)}%`;
+                        let p2Class = 'bg-gray-500'; // Default
+                        if (aluno.status === 'melhorou') p2Class = "bg-green-500";
+                        else if (aluno.status === 'queda') p2Class = "bg-yellow-500 text-gray-800";
+                        else if (aluno.status === 'novo') p2Class = "bg-cyan-500";
+
+                        p2BarHTML = `
+                            <div>
+                                <div class="flex justify-between text-sm font-medium text-gray-600">
+                                    <span>Prova 2ª Edição (% Acerto)</span>
+                                    <span>${p2Text}</span>
+                                </div>
+                                <div class="w-full progress-bar-bg">
+                                    <div class="progress-bar ${p2Class}" style="width: 0%;" data-target-width="${Math.max(aluno.p2, 5)}%">${p2Text}</div>
+                                </div>
+                            </div>`;
+                    }
+
+                    // --- Lógica para Emojis (INALTERADO) ---
+                    let emojiHTML = '';
+                    if (aluno.status === 'melhorou') {
+                        if (aluno.statusText === 'Salto Quântico!') emojiHTML = `<div class="text-6xl my-4">🚀🌌</div>`;
+                        else if (aluno.statusText === 'Saída do Zero') emojiHTML = `<div class="text-6xl my-4">📈🌱</div>`;
+                        else emojiHTML = `<div class="text-6xl my-4">🎉🤩</div>`;
+                    } else if (aluno.status === 'queda') {
+                        emojiHTML = `<div class="text-6xl my-4">🤔🧐</div>`;
+                    } else if (aluno.status === 'manteve') {
+                        emojiHTML = `<div class="text-6xl my-4">😐🧘</div>`;
+                    } else if (aluno.status === 'novo') {
+                        emojiHTML = `<div class="text-6xl my-4">👋🌟</div>`;
+                    } else if (aluno.status === 'saida') {
+                        emojiHTML = `<div class="text-6xl my-4">👋🛫</div>`;
+                    }
+
+
+                    // --- Montar o innerHTML do Painel (ATUALIZADO com barras) ---
+                    detailsPanel.innerHTML = `
+                        <div class="p-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                
+                                <!-- Coluna 1: Gráficos e Mensagem -->
+                                <div>
+                                    <!-- Status com Animação TikTok -->
+                                    <p class="status-text ${aluno.statusColor} text-2xl font-semibold">${aluno.statusText}</p>
+                                    
+                                    <!-- Barras de Progresso -->
+                                    <div class="mt-6 space-y-4">
+                                        ${p1BarHTML}
+                                        ${p2BarHTML}
+                                    </div>
+
+                                    <!-- Mensagem -->
+                                    <div class="mt-8">
+                                        <p class="font-semibold text-blue-800 text-lg">Uma mensagem para você:</p>
+                                        <blockquote class="border-l-4 border-blue-300 pl-4 italic text-gray-700 mt-2 text-base">
+                                            ${aluno.sugestao}
+                                        </blockquote>
+                                    </div>
+                                </div>
+
+                                <!-- Coluna 2: Emojis e Botão (INALTERADO) -->
+                                <div class="flex flex-col justify-between items-center text-center p-4 bg-white rounded-lg shadow-inner min-h-[250px]">
+                                    
+                                    <!-- EMOJIS (NOVO) -->
+                                    ${emojiHTML}
+                                    
+                                    <a href="https://forms.gle/SSSYWgGuoNdL3UQT8" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-200 shadow-md text-lg">
+                                        Deixar minha Reflexão
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    // 5. Evento de Clique (Toggle Acordeão) (ATUALIZADO)
                     button.onclick = () => {
-                        // Reseta o estilo do botão anterior
-                        if (lastSelectedButton) {
-                            lastSelectedButton.classList.remove('bg-blue-100', 'border-l-4', 'border-blue-500');
-                        }
-                        // Aplica estilo ao botão atual
-                        button.classList.add('bg-blue-100', 'border-l-4', 'border-blue-500');
-                        lastSelectedButton = button;
-
-                        // Preenche o card
-                        detailNome.textContent = aluno.nome;
-                        detailStatus.textContent = aluno.statusText;
-                        detailStatus.className = `text-lg font-semibold ${aluno.statusColor}`;
-
-                        // Barra P1
-                        if (aluno.p1 === null) {
-                            // Caso do Novo Aluno
-                            detailP1Label.textContent = "N/A (Não realizou a 1ª Edição)";
-                            detailP1Bar.style.width = `0%`;
-                            detailP1Bar.textContent = "N/A";
-                            detailP1Bar.className = "progress-bar bg-gray-400";
-                        } else {
-                            // Caso do Aluno existente ou que saiu
-                            const p1Text = `${aluno.p1.toFixed(2)}%`;
-                            detailP1Label.textContent = p1Text;
-                            detailP1Bar.style.width = `${Math.max(aluno.p1, 5)}%`; // Valor mínimo para a barra ser visível
-                            detailP1Bar.textContent = p1Text;
-                            detailP1Bar.className = "progress-bar bg-blue-500";
-                        }
-
-                        // Barra P2
-                        if (aluno.p2 === null) {
-                            // Caso do Aluno que saiu
-                            detailP2Label.textContent = "N/A (Mudou de escola)";
-                            detailP2Bar.style.width = `0%`;
-                            detailP2Bar.textContent = "N/A";
-                            detailP2Bar.className = "progress-bar bg-gray-400";
-                        } else {
-                            // Caso do Aluno existente ou novo
-                            const p2Text = `${aluno.p2.toFixed(2)}%`;
-                            detailP2Label.textContent = p2Text;
-                            detailP2Bar.style.width = `${Math.max(aluno.p2, 5)}%`; // Valor mínimo
-                            detailP2Bar.textContent = p2Text;
+                        // Se um painel já estiver aberto E não for este, feche-o
+                        if (openPanel && openPanel !== detailsPanel) {
+                            openPanel.classList.remove('open');
+                            openPanel.previousElementSibling.classList.remove('bg-blue-100', 'border-l-4', 'border-blue-500');
                             
-                            // Cor da barra P2 baseada no status
-                            if (aluno.status === 'melhorou') {
-                                detailP2Bar.className = "progress-bar bg-green-500";
-                            } else if (aluno.status === 'queda') {
-                                detailP2Bar.className = "progress-bar bg-yellow-500 text-gray-800";
-                            } else if (aluno.status === 'novo') {
-                                detailP2Bar.className = "progress-bar bg-cyan-500";
-                            } else {
-                                detailP2Bar.className = "progress-bar bg-gray-500";
-                            }
+                            // Reseta as barras do painel antigo (ATUALIZADO)
+                            openPanel.querySelectorAll('.progress-bar').forEach(bar => {
+                                bar.style.width = '0%';
+                            });
                         }
 
-                        detailSugestao.textContent = aluno.sugestao;
+                        // Abre ou fecha o painel atual
+                        detailsPanel.classList.toggle('open');
+                        
+                        if (detailsPanel.classList.contains('open')) {
+                            // Marca este como o painel aberto
+                            openPanel = detailsPanel;
+                            button.classList.add('bg-blue-100', 'border-l-4', 'border-blue-500');
+                            
+                            // Reinicia as animações dentro do painel
+                            const pulseAnim = detailsPanel.querySelector('.status-text');
+                            
+                            if (pulseAnim) {
+                                pulseAnim.classList.remove('animate-pulseZoom');
+                                void pulseAnim.offsetWidth;
+                                pulseAnim.classList.add('animate-pulseZoom');
+                            }
 
-                        // Mostra o card e esconde o placeholder
-                        detailCard.classList.remove('hidden');
-                        detailPlaceholder.classList.add('hidden');
+                            // ATIVA A ANIMAÇÃO DAS BARRAS (NOVO)
+                            // Usamos um pequeno timeout para garantir que o CSS 'transition' pegue a mudança de '0%' para 'target-width'
+                            setTimeout(() => {
+                                const bars = detailsPanel.querySelectorAll('.progress-bar');
+                                bars.forEach(bar => {
+                                    bar.style.width = bar.dataset.targetWidth;
+                                });
+                            }, 100); // 100ms de delay para a animação da barra
+
+                        } else {
+                            // Se foi fechado, não há painel aberto
+                            openPanel = null;
+                            button.classList.remove('bg-blue-100', 'border-l-4', 'border-blue-500');
+                            
+                            // Reseta as barras (ATUALIZADO)
+                            detailsPanel.querySelectorAll('.progress-bar').forEach(bar => {
+                                bar.style.width = '0%';
+                            });
+                        }
                     };
 
-                    studentListContainer.appendChild(button);
+                    // 6. Adicionar o botão e o painel ao container do aluno
+                    studentEntry.appendChild(button);
+                    studentEntry.appendChild(detailsPanel);
+
+                    // 7. Adicionar o container do aluno à lista
+                    studentListContainer.appendChild(studentEntry);
                 });
+
+            // --- 5. LÓGICA DE NAVEGAÇÃO DAS PÁGINAS (INALTERADO) ---
+            const pageHome = document.getElementById('page-home');
+            const pageConquistas = document.getElementById('page-conquistas');
+            const pageJornada = document.getElementById('page-jornada');
+            const pageEvolucao = document.getElementById('page-evolucao');
+            const allPages = [pageHome, pageConquistas, pageJornada, pageEvolucao];
+
+            const btnConquistas = document.getElementById('btn-conquistas');
+            const btnJornada = document.getElementById('btn-jornada');
+            const btnEvolucao = document.getElementById('btn-evolucao');
+            const btnVoltar = document.querySelectorAll('.btn-voltar');
+
+            // Função para mostrar uma página e esconder as outras
+            function showPage(pageToShow) {
+                allPages.forEach(page => {
+                    if (page === pageToShow) {
+                        page.classList.remove('hidden');
+                    } else {
+                        page.classList.add('hidden');
+                    }
+                });
+                window.scrollTo(0, 0); // Rola para o topo
+            }
+
+            // Eventos dos botões de navegação
+            btnConquistas.onclick = () => showPage(pageConquistas);
+            btnJornada.onclick = () => showPage(pageJornada);
+            btnEvolucao.onclick = () => showPage(pageEvolucao);
+
+            // Eventos dos botões "Voltar"
+            btnVoltar.forEach(button => {
+                button.onclick = () => showPage(pageHome);
+            });
+
         });
     </script>
 
